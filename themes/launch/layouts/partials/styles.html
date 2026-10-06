@@ -1,0 +1,13 @@
+{{- $css := resources.Get "css/main.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{- /* Optional per-site colours: params.brand_color and params.accent_color */ -}}
+{{- $vars := slice -}}
+{{- with site.Params.brand_color }}{{ $vars = $vars | append (printf "--brand:%s" .) }}{{ end -}}
+{{- with site.Params.accent_color }}{{ $vars = $vars | append (printf "--accent:%s" .) }}{{ end -}}
+{{- with $vars }}
+<style>:root{ {{ delimit . ";" | safeCSS }} }</style>
+{{- end -}}
+{{- /* Optional extra stylesheets from static/, e.g. custom_css = ["css/extra.css"] */ -}}
+{{- range site.Params.custom_css }}
+<link rel="stylesheet" href="{{ relURL . }}">
+{{- end }}

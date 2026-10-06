@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{{- $lang := "" -}}
+{{- $dir := "" -}}
+{{- if ge hugo.Version "0.158.0" -}}
+  {{- $lang = site.Language.Locale -}}
+  {{- $dir = site.Language.Direction -}}
+{{- else -}}
+  {{- $lang = site.LanguageCode -}}
+  {{- $dir = site.Language.LanguageDirection -}}
+{{- end }}
+<html lang="{{ $lang | default "en" }}"{{ if eq $dir "rtl" }} dir="rtl"{{ end }}>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    <meta name="robots" content="index, follow">
+    {{ partial "styles.html" . }}
+    {{- with site.Params.favicon }}
+    <link rel="icon" href="{{ relURL . }}">
+    {{- end }}
+    {{ with .OutputFormats.Get "RSS" }}
+    <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+    <link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+    {{ end }}
+    {{- template "_internal/opengraph.html" . -}}
+    {{- template "_internal/schema.html" . -}}
+    {{- template "_internal/twitter_cards.html" . -}}
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+    <main id="main" role="main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partialCached "footer.html" . }}
+  </body>
+</html>

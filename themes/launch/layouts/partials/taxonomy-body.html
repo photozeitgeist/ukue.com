@@ -1,0 +1,42 @@
+{{- if eq .Kind "taxonomy" }}
+{{- /* the list of all terms, e.g. /tags/ */}}
+<header class="page-head">
+  <div class="wrap">
+    <h1 class="page-title">{{ .Title }}</h1>
+  </div>
+</header>
+<div class="wrap page-body">
+  <div class="term-grid">
+    {{- range .Data.Terms.Alphabetical }}
+    <section class="term">
+      <h2 class="term-title"><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a><span class="count">{{ .Count }}</span></h2>
+      <ul>
+        {{- range .Pages }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{- end }}
+      </ul>
+    </section>
+    {{- end }}
+  </div>
+</div>
+{{- else }}
+{{- /* one term, e.g. /tags/case-studies/ */}}
+<header class="page-head">
+  <div class="wrap">
+    {{- with .Data.Singular }}
+    <p class="eyebrow">{{ . | humanize }}</p>
+    {{- end }}
+    <h1 class="page-title">{{ .Title }}</h1>
+  </div>
+</header>
+<div class="wrap page-body">
+  {{- with .Content }}
+  <div class="prose">{{ . }}</div>
+  {{- end }}
+  <div class="card-grid">
+    {{- range .Pages }}
+    {{ partial "card.html" . }}
+    {{- end }}
+  </div>
+</div>
+{{- end }}

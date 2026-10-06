@@ -1,0 +1,153 @@
+baseURL = "https://ukue.com/"
+languageCode = "en-us"
+title = "ukue.com"
+theme = "launch"
+
+[pagination]
+  pagerSize = 10
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[taxonomies]
+  tag = "tags"
+
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.instagram]
+    disable = true
+  [privacy.x]
+    disable = true
+  [privacy.vimeo]
+    disable = true
+  [privacy.youtube]
+    disable = true
+
+[author]
+  name = ""
+
+[params]
+  description = "µkue, a micro queue: a job queue that lives in one file. Retries, delayed jobs and dead letters in a single SQLite file, embedded in your app or served by one small binary. Free and open source."
+  author = ""
+  copyright = ""
+  logo = ""
+  recent_copy = "Guides and notes"
+  mainSections = ["posts"]
+
+[[params.media_partners]]
+  name = "Technologies"
+  url  = "https://technologies.org"
+
+  [[params.media_partners]]
+  name = "Technology Conferences"
+  url  = "https://technologyconference.com"
+
+  [[params.media_partners]]
+  name = "Market Analysis"
+  url  = "https://marketanalysis.com"
+
+  [[params.media_partners]]
+  name = "App Coding"
+  url  = "https://appcoding.com"
+
+  [[params.media_partners]]
+  name = "API Coding"
+  url  = "https://apicoding.com"
+
+# Homepage sections for the launch theme. Delete a block to hide that section.
+[params.hero]
+  badge     = "Version 0.1, free and open source"
+  badge_url = "/download/"
+  title     = "A job queue in one file"
+  subtitle  = "ukue keeps your background jobs in a single SQLite file, with retries, delayed jobs and dead letters. Embed it in your app, or run it as one small binary that any language can talk to. There's no Redis or RabbitMQ to look after."
+  image      = "/images/ukue-terminal.png"
+  image_alt  = "A terminal running ukue: two jobs added to the email queue, ukue stats counting them, and ukue work sending each one to a script and marking it done."
+  image_link = "/quick-start/"
+
+  [[params.hero.buttons]]
+    name = "Quick start"
+    url  = "/quick-start/"
+
+  [[params.hero.buttons]]
+    name = "What is a job queue?"
+    url  = "/what-is-a-job-queue-background-jobs-retries-and-dead-letters-explained/"
+
+[params.figures]
+  note = "Speed measured on a two-core cloud machine with every change flushed to disk. The test logs are on GitHub."
+
+  [[params.figures.items]]
+    value = "1 file"
+    label = "Holds every queue, job and retry. Copy it and you have a backup"
+
+  [[params.figures.items]]
+    value = "0 lost"
+    label = "Jobs out of 8,000 while worker processes were killed 250 times"
+
+  [[params.figures.items]]
+    value = "1,000/s"
+    label = "Jobs one worker ran, each step written safely to disk"
+
+  [[params.figures.items]]
+    value = "Apache 2.0"
+    label = "License for all of the code"
+
+[params.cta]
+  title  = "Questions or ideas?"
+  text   = "If ukue nearly fits your project, or you'd like it to do something it doesn't yet, write in."
+  button = "Contact"
+  url    = "/contact/"
+
+[permalinks]
+  posts = "/:title"
+  pages = "/:title"
+
+[menu]
+  [[menu.main]]
+    identifier = "quick-start"
+    name       = "Quick Start"
+    url        = "/quick-start/"
+    weight     = 1
+  [[menu.main]]
+    identifier = "github"
+    name       = "GitHub"
+    url        = "https://github.com/ukue-queue/ukue"
+    weight     = 2
+  [[menu.main]]
+    identifier = "about"
+    name       = "About"
+    url        = "/about/"
+    weight     = 3
+  [[menu.main]]
+    identifier = "contact"
+    name       = "Contact"
+    url        = "/contact/"
+    weight     = 4
+  [[menu.main]]
+    identifier = "download"
+    name       = "Download"
+    url        = "/download/"
+    weight     = 5
+    [menu.main.params]
+      button = true
+  [[menu.footer]]
+    identifier = "rss"
+    name       = "RSS"
+    url        = "/index.xml"
+    weight     = 8
+  [[menu.footer]]
+    identifier = "sitemap"
+    name       = "Sitemap"
+    url        = "/sitemap.xml"
+    weight     = 9
+  [[menu.footer]]
+    identifier = "archive"
+    name       = "Archive"
+    url        = "/archive/"
+    weight     = 10

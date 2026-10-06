@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{- if or (eq .Kind "taxonomy") (eq .Kind "term") }}
+{{ partial "taxonomy-body.html" . }}
+{{- else }}
+{{ partial "list-body.html" . }}
+{{- end }}
+{{ end }}

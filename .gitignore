@@ -1,0 +1,17 @@
+# Hugo build output
+public/
+.hugo_build.lock
+
+# Hugo cache
+resources/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Node
+node_modules/

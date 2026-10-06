@@ -1,0 +1,18 @@
+{{- $current := .RelPermalink -}}
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+    {{- with site.Menus.main }}
+    <nav class="nav-links" aria-label="Main">
+      {{- range . }}{{ if not .Params.button }}
+      <a href="{{ .URL }}"{{ if eq $current .URL }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}{{ end }}
+    </nav>
+    <div class="nav-cta">
+      {{- range . }}{{ if .Params.button }}
+      <a class="btn btn-primary btn-sm" href="{{ .URL }}"{{ if eq $current .URL }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}{{ end }}
+    </div>
+    {{- end }}
+  </div>
+</header>

@@ -1,0 +1,104 @@
+{{ define "main" }}
+{{- $hero := site.Params.hero | default dict -}}
+{{- $figures := site.Params.figures | default dict -}}
+{{- $cta := site.Params.cta | default dict -}}
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    {{- with $hero.badge }}
+      {{- with $hero.badge_url }}
+    <a class="badge" href="{{ . }}">{{ $hero.badge }}</a>
+      {{- else }}
+    <span class="badge">{{ . }}</span>
+      {{- end }}
+    {{- end }}
+    <h1 class="hero-title">{{ $hero.title | default site.Title }}</h1>
+    {{- with $hero.subtitle | default site.Params.description }}
+    <p class="hero-subtitle">{{ . }}</p>
+    {{- end }}
+    {{- with $hero.buttons }}
+    <div class="hero-actions">
+      {{- range $i, $b := . }}
+      <a class="btn btn-lg {{ if eq $i 0 }}btn-primary{{ else }}btn-ghost{{ end }}" href="{{ $b.url }}">{{ $b.name }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+  </div>
+</section>
+
+{{- with $hero.image }}
+<div class="hero-shot">
+  <div class="wrap">
+    {{ if $hero.image_link }}<a class="shot" href="{{ $hero.image_link }}">{{ else }}<div class="shot">{{ end }}
+      <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+      <img src="{{ . }}" alt="{{ $hero.image_alt }}" fetchpriority="high">
+    {{ if $hero.image_link }}</a>{{ else }}</div>{{ end }}
+  </div>
+</div>
+{{- end }}
+
+{{- with $figures.items }}
+<section class="figures">
+  <div class="wrap">
+    <div class="figure-grid">
+      {{- range . }}
+      <div class="figure">
+        <p class="figure-value">{{ .value }}</p>
+        <p class="figure-label">{{ .label }}</p>
+      </div>
+      {{- end }}
+    </div>
+    {{- with $figures.note }}
+    <p class="figures-note">{{ . }}</p>
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+
+{{- with .Content }}
+<section class="section">
+  <div class="wrap-prose prose">{{ . }}</div>
+</section>
+{{- end }}
+
+{{- $mainSections := .Site.Params.mainSections | default (slice "post") -}}
+{{- $pages := where .Site.RegularPages "Section" "in" $mainSections -}}
+{{- $count := $.Param "recent_posts_number" | default 9 -}}
+{{- with $pages }}
+<section class="section section-soft">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">{{ $.Param "recent_copy" | default "Recent Posts" }}</h2>
+      {{- if gt (len $pages) $count }}
+        {{- with $.Site.GetPage (printf "/%s" (index $mainSections 0)) }}
+      <a class="more-link" href="{{ .RelPermalink }}">All posts &rarr;</a>
+        {{- end }}
+      {{- end }}
+    </div>
+    <div class="card-grid">
+      {{- range first $count $pages }}
+      {{ partial "card.html" . }}
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{- with $cta.title }}
+<section class="section">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2 class="cta-title">{{ . }}</h2>
+        {{- with $cta.text }}
+        <p class="cta-text">{{ . }}</p>
+        {{- end }}
+      </div>
+      {{- with $cta.url }}
+      <a class="btn btn-primary btn-lg" href="{{ . }}">{{ $cta.button | default "Contact" }}</a>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+{{ end }}

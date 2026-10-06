@@ -1,0 +1,15 @@
+<article class="card">
+  {{- with .Params.featured_image }}
+  <img class="card-image" src="{{ (trim . "/") | absURL }}" alt="" loading="lazy">
+  {{- end }}
+  <div class="card-body">
+    {{- with .Params.tags }}
+    <p class="eyebrow">{{ index . 0 }}</p>
+    {{- end }}
+    <h3 class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p class="card-text">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 170 }}{{ end }}</p>
+    {{- if not .Date.IsZero }}
+    <p class="card-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format (default "January 2, 2006" site.Params.date_format) }}</time></p>
+    {{- end }}
+  </div>
+</article>

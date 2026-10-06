@@ -1,0 +1,11 @@
+{{- /* Same form as Ananke's form-contact shortcode: {{< form-contact action="https://..." >}} */ -}}
+<form class="contact-form" accept-charset="UTF-8" action="{{ .Get "action" }}" method="POST" role="form">
+  <label for="name">Your Name</label>
+  <input type="text" id="name" name="name" required placeholder=" " aria-labelledby="name"/>
+  <label for="email">Email Address</label>
+  <input type="email" id="email" name="email" required placeholder=" " aria-labelledby="email"/>
+  <p class="form-note">An email address is required.</p>
+  <label for="message">Message</label>
+  <textarea id="message" name="message" aria-labelledby="message"></textarea>
+  <input type="submit" value="Send" />
+</form>

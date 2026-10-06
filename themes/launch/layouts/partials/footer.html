@@ -1,0 +1,43 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+      {{- with site.Params.description }}
+      <p>{{ . }}</p>
+      {{- end }}
+    </div>
+    {{- with site.Menus.main }}
+    <nav class="footer-col" aria-label="Footer">
+      <p class="footer-heading">Menu</p>
+      <ul>
+        {{- range . }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+    {{- end }}
+    {{- with site.Menus.footer }}
+    <div class="footer-col">
+      <p class="footer-heading">More</p>
+      <ul>
+        {{- range . }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+    {{- with site.Params.media_partners }}
+    <div class="footer-col media-partners">
+      <p class="footer-heading">Media Partners</p>
+      <ul>
+        {{- range . }}
+        <li><a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a></li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+  </div>
+  <div class="wrap footer-bottom">
+    <a href="{{ .Site.BaseURL }}">&copy; {{ with .Site.Copyright | default .Site.Title }}{{ . | safeHTML }} {{ now.Format "2006" }}{{ end }}</a>
+  </div>
+</footer>

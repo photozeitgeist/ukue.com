@@ -1,0 +1,16 @@
+<header class="page-head">
+  <div class="wrap">
+    <h1 class="page-title">{{ .Title }}</h1>
+  </div>
+</header>
+<div class="wrap page-body">
+  {{- with .Content }}
+  <div class="prose">{{ . }}</div>
+  {{- end }}
+  <div class="card-grid">
+    {{- range .Paginator.Pages }}
+    {{ partial "card.html" . }}
+    {{- end }}
+  </div>
+  {{ template "_internal/pagination.html" . }}
+</div>
