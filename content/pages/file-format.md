@@ -11,7 +11,7 @@ A ukue file is an SQLite database with two tables in it. Any program that can wr
 
 ## The File
 
-- **SQLite 3, in WAL mode.** ukue switches a new file to WAL, and the setting is stored in the file, so every program that opens it uses WAL too. Readers can then carry on while a writer commits.
+- **SQLite 3, in WAL mode.** When ukue adds its tables to a file, it switches the file to WAL, and the setting is stored in the file, so every program that opens it uses WAL too. Readers can then carry on while a writer commits.
 - **Marked as ukue.** A file ukue creates for itself has the application ID `0x756B7565`, the letters "ukue", in its SQLite header. The tables can also sit inside an app's own database, next to its tables.
 - **On one machine.** Many processes on one machine can use the file at once. Programs elsewhere go through `ukue serve`, because SQLite's locking doesn't work over network file systems.
 - **Times** are whole milliseconds since 1970, in UTC.
@@ -28,7 +28,7 @@ A ukue file is an SQLite database with two tables in it. Any program that can wr
 | `queue` | The queue's name, 1 to 200 characters |
 | `payload` | The job's data, as bytes. ukue never reads it |
 | `state` | `ready`, `running`, `done` or `dead` |
-| `priority` | Among due jobs, the highest priority runs first. Default 0 |
+| `priority` | Among due jobs, the highest priority runs first. From -100 to 100, default 0 |
 | `attempts` | How many times the job has been claimed |
 | `max_attempts` | How many attempts it gets before it's dead. Default 10 |
 | `run_at` | When a ready job may start. Default now |

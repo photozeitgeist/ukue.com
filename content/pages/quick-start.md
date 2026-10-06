@@ -44,7 +44,7 @@ The command tells ukue how it went through its exit status:
 - **65** says the payload is bad and trying again won't help. The job goes straight to the dead letters.
 - **Anything else** fails the attempt. The job goes back on the queue and is tried again after 10 seconds, then 20, then 40, doubling up to an hour, 10 attempts in all.
 
-The command also gets `UKUE_JOB_ID`, `UKUE_QUEUE`, `UKUE_ATTEMPT` and `UKUE_MAX_ATTEMPTS` in its environment. Add `--concurrency 4` to run four jobs at once, and `--timeout 2m` to stop a command that hangs. Press Ctrl-C to stop the worker: it lets running commands finish first.
+The command also gets `UKUE_JOB_ID`, `UKUE_QUEUE`, `UKUE_ATTEMPT` and `UKUE_MAX_ATTEMPTS` in its environment. Add `--concurrency 4` to run four jobs at once, and `--timeout 2m` to stop a command that hangs. Press Ctrl-C to stop the worker. It lets running commands finish, for up to 30 seconds by default, then sends them SIGTERM.
 
 To see what failed and try it again:
 

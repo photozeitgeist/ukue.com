@@ -6,7 +6,7 @@ featured_image: "https://ukue.com/images/micro-u.png"
 tags: ["the name", "ukue"]
 ---
 
-ukue is meant to be read as µkue, a micro queue. Plenty of people will say "you-queue" instead, and that's fine. But the u isn't an abbreviation of micro. It's a stand-in for the real sign, the Greek letter μ, and the story of how one turned into the other is older than computers.
+ukue is meant to be read as µkue, a micro queue. Plenty of people will say "you-queue" instead, and that's fine. The u is a stand-in for the real sign of micro, the Greek letter μ, and the story of how one turned into the other is older than computers.
 
 Micro comes from the Greek *mikrós*, "small", and in Greek that word starts with μ, their letter m. When the metric system gave its prefixes one-letter symbols, the Latin m was already taken by milli, a thousandth. So micro, a millionth, got the Greek m. That's why a microsecond is written µs and a microfarad µF.
 

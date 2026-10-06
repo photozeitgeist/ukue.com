@@ -91,7 +91,7 @@ theme = "launch"
     label = "Jobs out of 8,000 while worker processes were killed 250 times"
 
   [[params.figures.items]]
-    value = "1,000/s"
+    value = "900/s"
     label = "Jobs one worker ran, each step written safely to disk"
 
   [[params.figures.items]]

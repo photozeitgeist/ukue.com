@@ -39,12 +39,12 @@ ukue add jobs.ukue email '{"to": "dana@example.com"}'
 ukue work jobs.ukue email -- ./send-email.sh
 ```
 
-The script gets the payload on its standard input. Exit status 0 means done, and anything else means try again later.
+The script gets the payload on its standard input. Exit status 0 means done, 65 means the payload is bad and the job should go to the dead letters, and anything else means try again later.
 
 From Go, it's a package with `Enqueue` and `Work`. From any other language, `ukue serve` offers [an HTTP API](https://ukue.com/http-api/) where workers claim a job, do it and report back. The [quick start](https://ukue.com/quick-start/) covers all three.
 
 ## Where It Fits
 
-ukue is built for small teams and single machines: one app server, or a few workers on the same box, handling up to about a thousand jobs a second. Workers on other machines can share the queue through `ukue serve`. It isn't trying to be a distributed message broker. A system that has to move tens of thousands of messages a second across a cluster wants a different tool.
+ukue is built for small teams and single machines: one app server, or a few workers on the same box, handling up to several hundred jobs a second. Workers on other machines can share the queue through `ukue serve`. It isn't trying to be a distributed message broker. A system that has to move tens of thousands of messages a second across a cluster wants a different tool.
 
 The code is open source under the Apache License 2.0, and the binaries for Linux, macOS and Windows are on [the download page](https://ukue.com/download/). [How it was tested](https://ukue.com/how-the-ukue-job-queue-was-tested-250-killed-workers-0-lost-jobs/) is a post of its own.

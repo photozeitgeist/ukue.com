@@ -20,6 +20,7 @@ UKUE_TOKEN=s3cret ukue serve --addr :7660 jobs.ukue
 - **Times** in answers are in UTC, such as `"2026-10-06T09:00:00.000Z"`.
 - **Payloads.** A `payload` that is a JSON string is stored as its text, and any other JSON value is stored as compact JSON. Send binary data as `payload_base64`. Answers give the payload back as text when it is valid UTF-8, and as `payload_base64` otherwise.
 - **Size.** A request may be up to 1 MiB, unless the server was started with a different `--max-body`.
+- **Browsers.** Requests that change something are refused when they come from a web page on another site. Without a token, the server also answers only requests addressed to `localhost`, `127.0.0.1` or `::1`, so a web page can't reach it through a DNS name that points at your machine.
 
 ## Add a Job
 
@@ -29,7 +30,7 @@ UKUE_TOKEN=s3cret ukue serve --addr :7660 jobs.ukue
 {"queue": "email", "payload": {"to": "dana@example.com"}, "delay": "10m", "max_attempts": 5, "priority": 0}
 ```
 
-Only `queue` is required. Give `delay` or `run_at`, an RFC 3339 time, but not both. The answer is `201` with `{"id": 42}`.
+Only `queue` is required. Give `delay` or `run_at`, an RFC 3339 time, but not both. `priority` runs from -100 to 100. The answer is `201` with `{"id": 42}`.
 
 ## Run Jobs
 
@@ -65,7 +66,7 @@ Keep the `token`. The four calls below need it, and it proves the worker still h
 | `POST /v1/jobs/{id}/extend` | `{"token": "...", "lease": 60}` | Renews the lease for a long job |
 | `POST /v1/jobs/{id}/release` | `{"token": "..."}` | Puts the job back without counting the attempt, for a worker that is shutting down |
 
-If the worker no longer holds the job, because its lease ran out or someone deleted it, these calls answer `409`. The job may already be running somewhere else.
+These calls answer `409` once the worker no longer holds the job: someone deleted it, or its lease ran out and a later claim put it back on the queue. The job may then already be running somewhere else.
 
 ## Look and Tidy Up
 

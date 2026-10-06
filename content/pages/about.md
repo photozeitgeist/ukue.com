@@ -12,7 +12,7 @@ Most apps reach the point where some work has to happen later, or somewhere othe
 
 ## How It's Built
 
-- **On SQLite.** ukue doesn't bring its own storage engine. The file is an SQLite database with a documented layout, and SQLite takes care of crash safety and locking. Every change to a job is one transaction, flushed to disk before ukue moves on.
+- **On SQLite.** The file is an SQLite database with a documented layout, and SQLite takes care of crash safety and locking. Every change to a job is one transaction, flushed to disk before ukue moves on.
 - **The file format comes first.** The layout, and the steps for claiming and finishing jobs, are written up in [the file format](https://ukue.com/file-format/), so programs in other languages can share a file without going through ukue at all.
 - **Library or binary.** In Go, ukue is a package you import. For everything else there's the `ukue` command, which runs a script for each job or serves a small [HTTP API](https://ukue.com/http-api/).
 - **Tested by breaking it.** The tests kill worker processes at random moments while they work, then check that no job was lost and the file is intact. [The results](https://github.com/ukue-queue/ukue/tree/main/test/results) are published with the code.
@@ -41,7 +41,7 @@ The job it held goes back on the queue when its lease runs out, after a minute b
 
 ### How fast is it?
 
-Fast enough for most small teams. On a two-core cloud machine, with every change flushed to disk, ukue added about 3,600 jobs a second, and a worker ran about 1,000 jobs a second. The disk sets the pace more than anything else.
+Fast enough for most small teams. On a two-core cloud machine, with every change flushed to disk, ukue added about 4,000 jobs a second, and a worker ran about 900 jobs a second. The disk sets the pace more than anything else.
 
 ### How do you say it?
 

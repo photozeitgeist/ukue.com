@@ -18,7 +18,7 @@ The hardest test starts four worker processes on one file with 8,000 jobs, four 
 
 After 250 kills and about 20 seconds, all 8,000 jobs were done. None was lost, none was left stuck, and SQLite's own integrity check found the file intact, both during the run and after it.
 
-387 jobs ran more than once. That's expected: their worker was killed after it started the work and before it marked the job done, so the job's lease ran out and another worker picked it up. This is what at-least-once delivery means in practice, and it's why handlers should be safe to repeat.
+329 jobs ran more than once. That's expected: their worker was killed after it started the work and before it marked the job done, so the job's lease ran out and another worker picked it up. This is what at-least-once delivery means in practice, and it's why handlers should be safe to repeat.
 
 ## A Kill While Holding a Job
 
@@ -34,8 +34,8 @@ ukue's [file format](https://ukue.com/file-format/) is meant to be shared, so on
 
 ## A Long Schedule
 
-A queue full of jobs scheduled for later shouldn't slow down the jobs that are due. With 100,000 scheduled jobs in the file, a claim that found nothing due took 42 microseconds, and adding, claiming and finishing a job took 1.6 milliseconds. Claims look jobs up through indexes, and the test checks SQLite's query plans to make sure they stay that way.
+A queue full of jobs scheduled for later shouldn't slow down the jobs that are due. With 100,000 scheduled jobs in the file, a claim that found nothing due took 21 microseconds, and adding, claiming and finishing a job took 1.1 milliseconds. Claims look jobs up through indexes, and the test checks SQLite's query plans to make sure they stay that way.
 
 ## And the Rest
 
-Every operation has its own tests: delays, priorities, backoff, dead letters, leases that run out, the HTTP API and the command line. The whole suite also runs under Go's race detector, which found nothing. You can run all of it yourself with `sh scripts/record-tests.sh` from [the repository](https://github.com/ukue-queue/ukue).
+Every operation has its own tests: delays, priorities, backoff, dead letters, leases that run out, the HTTP API and the command line. One test has another program hold the file's write lock just as a job finishes; the worker keeps its lease and keeps trying to mark the job done until it can, and the job runs once. The whole suite also runs under Go's race detector, which found nothing. You can run all of it yourself with `sh scripts/record-tests.sh` from [the repository](https://github.com/ukue-queue/ukue).
